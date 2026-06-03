@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cache-control" content="no-cache, must-revalidate, max-age=0">
+    <title>AdaIN Style Transfer</title>
+    <link rel="stylesheet" href="/static/style.css?v={{ version }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AdaIN Neural Style Transfer</h1>
+        
+        <div class="instruction-box">
+            <div class="instruction-content">
+                <span class="instruction-title">Как использовать:</span>
+                <span class="instruction-text">Загрузите ваше фото, которое хотите стилизовать и фото, которым хотите стилизовать. Учтите, что для более интересного и качественного результата
+                выбирайте, чтобы контент изображение было с хорошим освещением, если есть фон, то чтобы оно было богато текстурами.
+                Для стиль изображения важно, чтобы это было художественное произведение и оно имело выраженные текстуры, мазки и т.д. </span>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="upload-section">
+                <div class="upload-box" id="content-upload">
+                    <div class="upload-label">Контент изображение</div>
+                    <input type="file" id="content-input" accept="image/*" class="file-input">
+                    <div class="upload-preview" id="content-preview">
+                        <img id="content-img" src="" alt="Content preview">
+                        <span class="placeholder">Выберите фото</span>
+                    </div>
+                </div>
+
+                <div class="upload-box" id="style-upload">
+                    <div class="upload-label">Стиль изображение</div>
+                    <input type="file" id="style-input" accept="image/*" class="file-input">
+                    <div class="upload-preview" id="style-preview">
+                        <img id="style-img" src="" alt="Style preview">
+                        <span class="placeholder">Выберите стиль</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="advanced-settings">
+                <h3>Расширенные настройки (размер в пикселях, при выборе большего размера - более долгая обработка)</h3>
+                
+                <div class="settings-grid">
+        <!-- Размер контента -->
+        <div class="setting-item">
+            <label for="content-size">
+                Размер контента 
+                <span class="hint">(рек. 512)</span>
+            </label>
+            <input type="number" id="content-size" value="512" min="0" max="2048">
+        </div>
+        
+        <!-- Размер стиля -->
+        <div class="setting-item">
+            <label for="style-size">
+                Размер стиля 
+                <span class="hint">(рек. 512)</span>
+            </label>
+            <input type="number" id="style-size" value="512" min="0" max="2048">
+        </div>
+        
+        <!-- Центральный кроп -->
+        <div class="setting-item setting-checkbox">
+            <label>
+                <input type="checkbox" id="crop">
+                Центральный кроп (квадрат)
+            </label>
+        </div>
+        
+        <!-- Сохранить цвета -->
+        <div class="setting-item setting-checkbox">
+            <label>
+                <input type="checkbox" id="preserve-color">
+                Сохранить цвета контента
+            </label>
+        </div>
+    </div>
+</div>
+            <div class="controls">
+                <div class="control-group">
+                    <label for="alpha">Сила стилизации (alpha): <span id="alpha-value">1.0</span></label>
+                    <input type="range" id="alpha" min="0" max="1" step="0.1" value="1.0">
+                </div>
+
+                <button id="stylize-btn" class="btn-primary" {% if not model_loaded %}disabled{% endif %}>
+                    <span class="btn-text">Стилизовать</span>
+                    <span class="btn-loading" style="display: none;">
+                        <span class="spinner"></span> Обработка...
+                    </span>
+                </button>
+            </div>
+
+            <div class="result-section" id="result-section" style="display: none;">
+                <h2>Результат</h2>
+                <div class="result-info" id="result-info"></div>
+                <div class="result-container">
+                    <img id="result-img" src="" alt="Stylized result">
+                </div>
+                <a id="download-btn" class="btn-secondary" download="stylized.jpg">
+                    Скачать результат
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js?v={{ version }}"></script>
+</body>
+</html>

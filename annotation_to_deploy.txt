@@ -1,0 +1,27 @@
+-Подключение к серверу через ssh-
+ssh root@ip-vps
+
+-Настройка базовой безопасности через UFW-
+
+sudo ufw allow ssh
+sudo ufw allow 8000
+sudo ufw enable
+
+-Запуск приложения в интернет-
+source venv/bin/activate
+nohup uvicorn app:app --host 0.0.0.0 --port 8000 &
+
+-Копирование файлов с компа на VPS-
+scp C:\путь\к\папке root@-ip-vps:/root/
+
+-Установка python-
+
+sudo apt install python3
+или если будет недостаточно
+sudo apt install python3 python3-pip python3-venv
+
+-Установка виртуального окружения на VPS-
+cd /root/nst-web-test
+python3-m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
