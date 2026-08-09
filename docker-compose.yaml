@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: adain_style
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./outputs:/app/outputs
+      - ./uploads:/app/uploads
+      - ./models:/app/models   # важно – чтобы веса не пересоздавались
+    restart: unless-stopped
